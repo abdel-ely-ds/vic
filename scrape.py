@@ -19,17 +19,17 @@ def scrape(session, protected_url):
     # Trimming unnecessary text
     idx = text_content.index("Apply")
     s = len("Apply")
-    ret = text_content[idx + s:]
+    ret = text_content[idx + s :]
     idx = ret.index("""show\nAll""")
     ret = ret[:idx]
 
-    unwanted_text = """Submit an idea for full membership consideration
-    and get access to the latest member ideas.
-    Related Ideas?
-    None found
-    Description / Catalyst
-    Messages
-    """
-
-    ret = ret.replace(unwanted_text, "")
+    unwanted_text = [
+        "Submit an idea for full membership consideration",
+        "and get access to the latest member ideas.",
+        "Related Ideas?",
+        "Description / Catalyst",
+        "Messages",
+    ]
+    for ut in unwanted_text:
+        ret = ret.replace(ut, "")
     return ret

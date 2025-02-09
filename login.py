@@ -16,6 +16,6 @@ def login(username, password):
         "login[login_name]": username,
         "login[password]": password,
         "login[remember_me]": "on",
-        "commit": "Login"
+        "commit": "Login",
     }
     return session.post(login_url, data=payload)
