@@ -1,7 +1,7 @@
-payload = {
+base = {
     "show": "all",
     "daterange": "3",
-    "ls": "l",
+    "ls": "all",
     "loc": "us",
     "sort": "new",
     "marketcap_l": "0",

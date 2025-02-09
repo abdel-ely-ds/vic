@@ -1,6 +1,7 @@
+import json
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 
 
 @dataclass
@@ -33,3 +34,26 @@ class Idea:
         self.add_date = datetime.strptime(self.add_date, "%Y-%m-%d %H:%M:%S")
         self.market_cap = float(self.market_cap.replace(",", ""))
         self.price = float(self.price)
+
+    @staticmethod
+    def save_list_to_file(ideas: List["Idea"], filename: str):
+        with open(filename, "w") as file:
+            json.dump([idea.__dict__ for idea in ideas], file, default=str)
+
+    @staticmethod
+    def load_list_from_file(filename: str) -> List["Idea"]:
+        with open(filename, "r") as file:
+            data = json.load(file)
+
+            # to be fixed
+            return [
+                Idea(
+                    **{
+                        **idea,
+                        "add_date": datetime.strptime(
+                            idea["add_date"], "%Y-%m-%d %H:%M:%S"
+                        ),
+                    }
+                )
+                for idea in data
+            ]

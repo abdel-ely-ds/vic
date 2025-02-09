@@ -10,7 +10,7 @@ def parse_ideas(data: Dict[str, List[Dict]]) -> List[Idea]:
     return ideas
 
 
-def load_ideas(session, payload) -> List[Idea]:
+def load(session, payload) -> List[Idea]:
     ideas_url = "https://www.valueinvestorsclub.com/ideas/loadideas"
     ideas_response = session.post(ideas_url, data=payload)
     results = ideas_response.json()["result"]

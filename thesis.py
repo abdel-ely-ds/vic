@@ -32,4 +32,7 @@ def scrape(session, protected_url):
     ]
     for ut in unwanted_text:
         ret = ret.replace(ut, "")
-    return ret
+
+    idx = ret.index("Description")
+
+    return ret[idx:]
