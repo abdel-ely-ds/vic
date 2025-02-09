@@ -1,7 +1,7 @@
 # Value Investors Club Project
 
 ## Overview
-The **Value Investors Club Project** aims to leverage data-driven insights and machine learning to analyze investment ideas shared by memebersof vic.com. This project involves gathering investment data, conducting in-depth analysis, and developing LLMs models to filter losing investments theses.
+The **Value Investors Club Project** aims to leverage data-driven insights and machine learning to analyze investment ideas shared by memebers of vic.com. This project involves gathering investment data, conducting in-depth analysis, and developing LLMs models to filter losing investments theses.
 
 ## Features
 - **Data Gathering**: Extract investment theses and discussions from Value Investors Club and other sources.
