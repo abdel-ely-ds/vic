@@ -2,7 +2,7 @@ from dataclasses import replace
 from typing import List
 import time
 from dotenv import dotenv_values
-
+import argparse
 from ideas import Idea
 import ideas
 from login import login
@@ -61,4 +61,10 @@ def main(page_id_start: int, page_id_end: int) -> None:
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Process pages for ideas.")
+    parser.add_argument("page_id_start", type=int, help="Starting page ID.")
+    parser.add_argument("page_id_end", type=int, help="Ending page ID.")
+
+    args = parser.parse_args()
+
+    main(args.page_id_start, args.page_id_end)
