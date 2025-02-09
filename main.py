@@ -26,13 +26,21 @@ def process_page(session, page_id: int) -> List[Idea]:
 
     complete_ideas = []
     for idea in ideas_list:
-        encode_company_name = idea["encode_company_name"]
-        keyid = idea["keyid"]
+        encode_company_name = idea.encode_company_name
+        keyid = idea.keyid
         protected_url = (
             f"https://www.valueinvestorsclub.com/idea/{encode_company_name}/{keyid}"
         )
         description = thesis.scrape(session, protected_url)
-        complete_ideas.append(replace(idea, description=description))
+        complete_ideas.append(
+            replace(
+                idea,
+                add_date=str(idea.add_date),
+                market_cap=str(idea.market_cap),
+                price=str(idea.price),
+                description=description,
+            )
+        )
 
         time.sleep(5)
 

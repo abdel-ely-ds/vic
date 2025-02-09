@@ -1,7 +1,8 @@
 from typing import Dict, Optional, List
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from datetime import datetime
+import pandas as pd
 
 
 @dataclass
@@ -36,27 +37,29 @@ class Idea:
         self.price = float(self.price)
 
     @staticmethod
-    def save_list_to_file(ideas: List["Idea"], filename: str):
+    def save_list_to_file(ideas, filename):
+        data_to_save = []
+        for idea in ideas:
+            idea_dict = idea.__dict__
+            idea_dict["price"] = str(idea_dict["price"])
+            idea_dict["market_cap"] = str(idea_dict["market_cap"])
+            idea_dict["add_date"] = str(idea_dict["add_date"])
+            data_to_save.append(idea_dict)
+
         with open(filename, "w") as file:
-            json.dump([idea.__dict__ for idea in ideas], file, default=str)
+            json.dump(data_to_save, file, default=str)
 
     @staticmethod
     def load_list_from_file(filename: str) -> List["Idea"]:
         with open(filename, "r") as file:
             data = json.load(file)
 
-            # to be fixed
-            return [
-                Idea(
-                    **{
-                        **idea,
-                        "add_date": datetime.strptime(
-                            idea["add_date"], "%Y-%m-%d %H:%M:%S"
-                        ),
-                    }
-                )
-                for idea in data
-            ]
+        return [Idea(**d) for d in data]
+
+    @classmethod
+    def to_dataframe(cls, ideas: List["Idea"]) -> pd.DataFrame:
+        idea_dicts = [asdict(idea) for idea in ideas]
+        return pd.DataFrame(idea_dicts)
 
 
 def parse_ideas(data: Dict[str, List[Dict]]) -> List[Idea]:
