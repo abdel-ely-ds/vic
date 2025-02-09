@@ -7,3 +7,9 @@ The **Value Investors Club Project** aims to leverage data-driven insights and m
 - **Data Gathering**: Extract investment theses and discussions from Value Investors Club and other sources.
 - **Data Analysis**: Identify key patterns, investment trends, and risk-reward ratios.
 - **LLM & Reward Model Development**: Train large language models (LLMs) and reward models to predict investment outcomes and enhance decision-making.
+
+
+## Road Map
+
+- **utily functions** to measure returns, win rate...
+- **utily functions** to prepare data for training ml models
