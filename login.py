@@ -1,8 +1,11 @@
+from typing import Optional
+
 import requests
 from bs4 import BeautifulSoup
+from requests import Session
 
 
-def login(username, password):
+def login(username: str, password: str) -> Optional[Session]:
 
     session = requests.Session()
     login_url = "https://www.valueinvestorsclub.com/login"
@@ -18,4 +21,7 @@ def login(username, password):
         "login[remember_me]": "on",
         "commit": "Login",
     }
-    return session.post(login_url, data=payload)
+    response = session.post(login_url, data=payload)
+    if "Logout" in response.text:
+        return session
+    return None
