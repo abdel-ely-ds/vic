@@ -3,7 +3,7 @@ from typing import List
 import time
 from dotenv import dotenv_values
 
-from idea import Idea
+from ideas import Idea
 import ideas
 from login import login
 import payload
