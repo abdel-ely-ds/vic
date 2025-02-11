@@ -14,7 +14,7 @@ class Idea:
     deleted_by_user_id: Optional[int] = None
     description: str = ""
     display_name: str = ""
-    encode_company_name: str = ""
+    encode_company_name: str = "undefined"
     format_date: str = ""
     id: int = 0
     idea_status: int = 0
