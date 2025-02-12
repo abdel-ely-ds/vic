@@ -1,21 +1,21 @@
 from bs4 import BeautifulSoup
+from logger_config import get_logger
+
+logger = get_logger(__name__)
 
 
 def scrape(session, protected_url):
     protected_page = session.get(protected_url)
-
     soup = BeautifulSoup(protected_page.text, "html.parser")
 
-    full_html = str(soup)
+    target_div = soup.find("div", id="description")
 
-    cutoff_point = full_html.find('<div class="tab-pane " id="messages">')
-    if cutoff_point != -1:
-        truncated_html = full_html[:cutoff_point]
-        soup = BeautifulSoup(truncated_html, "html.parser")
-
-    text_content = soup.get_text(separator="\n", strip=True)
-
-    return text_content
+    if target_div:
+        logger.info(f"scrapped successfully the idea: {protected_url}")
+        return target_div.get_text(separator="\n", strip=True)
+    else:
+        logger.info(f"Couldn't find the thesis of the idea: {protected_url}")
+        return ""
 
 
 def clean(thesis: str) -> str:
