@@ -12,6 +12,21 @@ import ideas
 from login import login
 import payload
 import thesis
+import logging
+from tqdm import tqdm
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+file_handler = logging.FileHandler("process.log")
+file_handler.setFormatter(
+    logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+)
+logger.addHandler(file_handler)
+
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(logging.Formatter("%(levelname)s - %(message)s"))
+logger.addHandler(console_handler)
 
 creds = dotenv_values(".env")
 
@@ -29,7 +44,7 @@ def process_page(session, page_id: int) -> List[Idea]:
     ideas_list = ideas.load(session, page_payload)
 
     complete_ideas = []
-    for idea in ideas_list:
+    for idea in tqdm(ideas_list):
         encode_company_name = idea.encode_company_name
         keyid = idea.keyid
         protected_url = (
@@ -58,11 +73,11 @@ def run(page_id_start: int, page_id_end: int) -> None:
     if session is not None:
         page_id = page_id_start
         while page_id <= page_id_end:
-            print(f"Processing page: {page_id}")
+            logger.info(f"Processing page: {page_id}")
             complete_ideas = process_page(session, page_id)
             Idea.save_list_to_file(complete_ideas, f"./data/page_{page_id}")
             page_id += 1
-            print(f"Processed page: {page_id}")
+            logger.info(f"Processed page: {page_id}")
 
 
 if __name__ == "__main__":
