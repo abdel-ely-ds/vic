@@ -1,3 +1,7 @@
+"""
+Get Raw data
+"""
+
 from dataclasses import replace
 from typing import List
 import time
@@ -47,7 +51,7 @@ def process_page(session, page_id: int) -> List[Idea]:
     return complete_ideas
 
 
-def main(page_id_start: int, page_id_end: int) -> None:
+def run(page_id_start: int, page_id_end: int) -> None:
     session = login(creds["username"], creds["password"])
 
     # logged in
@@ -68,4 +72,4 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    main(args.page_id_start, args.page_id_end)
+    run(args.page_id_start, args.page_id_end)
