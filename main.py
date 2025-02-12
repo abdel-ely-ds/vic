@@ -58,6 +58,7 @@ def main(page_id_start: int, page_id_end: int) -> None:
             complete_ideas = process_page(session, page_id)
             Idea.save_list_to_file(complete_ideas, f"./data/page_{page_id}")
             page_id += 1
+            print(f"Processed page: {page_id}")
 
 
 if __name__ == "__main__":

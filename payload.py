@@ -1,7 +1,7 @@
 base = {
     "show": "all",
     "daterange": "3",
-    "ls": "all",
+    "ls": "l",
     "loc": "us",
     "sort": "new",
     "marketcap_l": "0",
