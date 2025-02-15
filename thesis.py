@@ -7,15 +7,7 @@ logger = get_logger(__name__)
 def scrape(session, protected_url):
     protected_page = session.get(protected_url)
     soup = BeautifulSoup(protected_page.text, "html.parser")
-
-    target_div = soup.find("div", id="description")
-
-    if target_div:
-        logger.info(f"scrapped successfully the idea: {protected_url}")
-        return target_div.get_text(separator="\n", strip=True)
-    else:
-        logger.info(f"Couldn't find the thesis of the idea: {protected_url}")
-        return ""
+    return soup.get_text(separator="\n", strip=True)
 
 
 def clean(thesis: str) -> str:
