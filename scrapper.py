@@ -50,7 +50,7 @@ def process_page(session, page_id: int) -> List[Idea]:
             )
         )
 
-        time.sleep(1)
+        time.sleep(2)
 
     return complete_ideas
 
