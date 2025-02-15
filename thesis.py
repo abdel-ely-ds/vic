@@ -11,23 +11,24 @@ def scrape(session, protected_url):
 
 
 def clean(thesis: str) -> str:
-    # Trimming unnecessary text
-    idx = thesis.index("Apply")
-    s = len("Apply")
-    ret = thesis[idx + s :]
-    idx = ret.index("""show\nAll""")
-    ret = ret[:idx]
+    idx1 = thesis.index("Description\n")
+    try:
+        idx2 = thesis.index("All\n")
+    except ValueError:
+        idx2 = len(thesis) + 1
 
-    unwanted_text = [
-        "Submit an idea for full membership consideration",
-        "and get access to the latest member ideas.",
-        "Related Ideas?",
-        "Description / Catalyst",
-        "Messages",
-    ]
-    for ut in unwanted_text:
-        ret = ret.replace(ut, "")
+    clean_text = thesis[idx1:idx2]
+    clean_text = clean_text.replace("<p>", "")
+    clean_text = clean_text.replace("</p>", "")
 
-    idx = ret.index("Description")
-    ret = ret[idx:]
-    return ret
+    if clean_text[-5:] == "show\n":
+        clean_text = clean_text[:-5]
+
+    try:
+        idx3 = clean_text.index("<ul>")
+    except ValueError:
+        idx3 = len(thesis) + 1
+
+    clean_text = clean_text[:idx3]
+
+    return clean_text
